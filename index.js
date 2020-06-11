@@ -1,49 +1,24 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-
-
-const hostname = 'localhost';
+const express = require("express"),
+  http = require("http");
+const morgan = require("morgan");
+const hostname = "localhost";
 const port = 3000;
+const bodyParser = require("body-parser");
+const app = express();
+const dishRouter = require("./routes/dishRouter");
+var leaderRouter = require("./routes/leaderRouter");
+var promoRouter = require("./routes/promoRouter");
 
-const server = http.createServer((req, res) => {
-  console.log('Request for ' + req.url + ' by method ' + req.method);
+app.use("/dishes", dishRouter);
+app.use("/promotions", promoRouter.router);
+app.use("/leadership", leaderRouter.router);
 
-  if (req.method == 'GET') {
-    var fileUrl;
-    if (req.url == '/') fileUrl = '/index.html';
-    else fileUrl = req.url;
+app.use(morgan("dev"));
 
-    var filePath = path.resolve('./public'+fileUrl);
-    const fileExt = path.extname(filePath);
-    if (fileExt == '.html') {
-      fs.exists(filePath, (exists) => {
-        if (!exists) {
-          res.statusCode = 404;
-          res.setHeader('Content-Type', 'text/html');
-          res.end('<html><body><h1>Error 404: ' + fileUrl + 
-                      ' not found</h1></body></html>');
-          return;
-        }
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        fs.createReadStream(filePath).pipe(res);
-      });
-    }
-    else {
-      res.statusCode = 404;
-      res.setHeader('Content-Type', 'text/html');
-      res.end('<html><body><h1>Error 404: ' + fileUrl + 
-              ' not a HTML file</h1></body></html>');
-    }
-  }
-  else {
-      res.statusCode = 404;
-      res.setHeader('Content-Type', 'text/html');
-      res.end('<html><body><h1>Error 404: ' + req.method + 
-              ' not supported</h1></body></html>');
-  }
-})
+app.use(express.static(__dirname + "/public"));
+
+const server = http.createServer(app);
+
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
