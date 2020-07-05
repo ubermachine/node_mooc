@@ -1,0 +1,3 @@
+[submodule "node-mongo"]
+	path = node-mongo
+	url = https://github.com/ubermachine/node_mooc.git
