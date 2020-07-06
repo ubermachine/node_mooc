@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-//const Currency = mongoose.Types.Currency;
+const Currency = mongoose.Types.Currency;
+// const Currency = mongoose.Types.Currency;
 // {
-//     "name": "Weekend Grand Buffet",
-//     "image": "images/buffet.png",
-//     "label": "New",
-//     "price": "19.99",
-//     "description": "Featuring . . .",
+//     "name": "Peter Pan",
+//     "image": "images/alberto.png",
+//     "designation": "Chief Epicurious Officer",
+//     "abbr": "CEO",
+//     "description": "Our CEO, Peter, . . .",
 //     "featured": false
-// }
+// /}
 var leaderSchema = new Schema(
   {
     name: {
@@ -20,12 +21,12 @@ var leaderSchema = new Schema(
       type: String,
       required: true,
     },
-    label: {
+    designation: {
       type: String,
       default: "",
       required: true,
     },
-    price: {
+    abbr: {
       type: String,
       required: true,
     },
