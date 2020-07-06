@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-//const Currency = mongoose.Types.Currency;
+
+require("mongoose-currency").loadType(mongoose);
+var Currency = mongoose.Types.Currency;
 // {
 //     "name": "Weekend Grand Buffet",
 //     "image": "images/buffet.png",
@@ -26,8 +28,9 @@ var promotionSchema = new Schema(
       required: true,
     },
     price: {
-      type: String,
+      type: Currency,
       required: true,
+      min: 0,
     },
     description: {
       type: String,
