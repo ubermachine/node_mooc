@@ -8,7 +8,7 @@ var promoRouter = express.Router();
 promoRouter.use(bodyParser.json());
 
 promoRouter
-  .route("/")
+  //.route("/")
   // .all((req, res, next) => {
   //   res.writeHead(200, { "Content-Type": 'application/json' });
   //   next();
