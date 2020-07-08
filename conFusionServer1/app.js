@@ -13,7 +13,7 @@ var leaderRouter = require("./routes/leaderRouter");
 var passport = require("passport");
 var authenticate = require("./authenticate");
 const mongoose = require("mongoose");
-
+var cors = require("cors");
 const Dishes = require("./models/dishes");
 var session = require("express-session");
 var FileStore = require("session-file-store")(session);
