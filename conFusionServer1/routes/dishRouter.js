@@ -241,7 +241,11 @@ dishRouter
     Dishes.findById(req.params.dishId)
       .then(
         (dish) => {
-          if (dish != null && dish.comments.id(req.params.commentId) != null) {
+          if (
+            dish != null &&
+            dish.comments.id(req.params.commentId) != null &&
+            req.user._id.equals(dish.comments.id(req.params.commentid).author)
+          ) {
             if (req.body.rating) {
               dish.comments.id(req.params.commentId).rating = req.body.rating;
             }
@@ -278,7 +282,11 @@ dishRouter
     Dishes.findById(req.params.dishId)
       .then(
         (dish) => {
-          if (dish != null && dish.comments.id(req.params.commentId) != null) {
+          if (
+            dish != null &&
+            dish.comments.id(req.params.commentId) != null &&
+            req.user._id.equals(dish.comments.id(req.params.commentid).author)
+          ) {
             dish.comments.id(req.params.commentId).remove();
             dish.save().then(
               (dish) => {
