@@ -19,6 +19,7 @@ var session = require("express-session");
 var FileStore = require("session-file-store")(session);
 var config = require("./config");
 const url = config.mongoUrl;
+const uploadRouter = require("./routes/uploadRouter");
 // const url = "mongodb://localhost:27017/conFusion";
 const connect = mongoose.connect(url, {
   useNewUrlParser: true,
@@ -61,7 +62,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use("/imageUpload", uploadRouter);
 app.use("/dishes", dishRouter);
 app.use("/promotions", promoRouter);
 app.use("/leaders", leaderRouter);
